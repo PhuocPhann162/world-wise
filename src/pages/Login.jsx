@@ -32,7 +32,7 @@ export default function Login() {
         </div>
 
         <div>
-          <button className="cta">Login</button>
+          <button className={styles.cta}>Login</button>
         </div>
       </form>
     </main>

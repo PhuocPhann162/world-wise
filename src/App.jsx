@@ -5,6 +5,7 @@ import Pricing from "./pages/Pricing";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./pages/AppLayout";
 import Login from "./pages/Login";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         <Route path="product" element={<Product />}></Route>
         <Route path="pricing" element={<Pricing />}></Route>
         <Route path="app" element={<AppLayout />}></Route>
-        <Route path="login" element={<Login />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/sidebar" element={<Sidebar />}></Route>
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
     </BrowserRouter>
