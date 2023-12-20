@@ -11,6 +11,19 @@
   gap: 2rem;
 }
 
+.city::-webkit-scrollbar {
+  width: 0px;
+}
+
+.city::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Màu của thanh cuộn */
+  border-radius: 10px;
+}
+
+.city:hover::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Màu của thanh cuộn khi hover */
+}
+
 .row {
   display: flex;
   flex-direction: column;
