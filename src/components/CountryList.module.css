@@ -10,3 +10,16 @@
   align-content: start;
   gap: 1.6rem;
 }
+
+.countryList::-webkit-scrollbar {
+  width: 0px;
+}
+
+.countryList::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Màu của thanh cuộn */
+  border-radius: 10px;
+}
+
+.countryList:hover::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Màu của thanh cuộn khi hover */
+}
