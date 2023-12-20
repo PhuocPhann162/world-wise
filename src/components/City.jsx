@@ -1,6 +1,8 @@
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "./City.module.css";
 import Button from "./Button";
+import { useCities } from "../contexts/CitiesContext";
+import { useEffect } from "react";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -19,15 +21,16 @@ const flagemojiToPNG = (flag) => {
   );
 };
 
-function City({ cities }) {
+function City() {
   const { id } = useParams();
-  const currentCity = cities.find((city) => city.id == id);
-  const { cityName, emoji, date, notes } = currentCity;
-
-  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
+  const { getCity, currentCity } = useCities();
+
+  useEffect(() => {
+    getCity(id);
+  }, [id]);
+
+  const { cityName, emoji, date, notes } = currentCity;
 
   return (
     <div className={styles.city}>
@@ -61,9 +64,11 @@ function City({ cities }) {
         </a>
       </div>
 
-      <Button type="back" onClick={() => navigate(-1)}>
-        Back
-      </Button>
+      <div className={styles.row}>
+        <Button type="back" onClick={() => navigate(-1)}>
+          Back
+        </Button>
+      </div>
     </div>
   );
 }
