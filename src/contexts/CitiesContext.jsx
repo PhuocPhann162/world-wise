@@ -30,12 +30,11 @@ function CityProvider({ children }) {
       const res = await fetch(`${BASE_URL}/cities/${id}`);
       const data = await res.json();
       setCurrentCity(data);
-    } catch (err) {
+    } catch {
       alert("There was an error loading data...");
     } finally {
       setIsLoading(false);
     }
-    getCity();
   }
 
   return (
@@ -47,8 +46,9 @@ function CityProvider({ children }) {
 
 function useCities() {
   const context = useContext(CityContext);
-  if (context === undefined)
+  if (context === undefined) {
     throw new Error("CityContext was used outside of the CityProvider");
+  }
   return context;
 }
 
