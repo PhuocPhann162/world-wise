@@ -1,4 +1,5 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./Map.module.css";
 import {
   MapContainer,
@@ -8,12 +9,11 @@ import {
   useMap,
   useMapEvents,
 } from "react-leaflet";
-import { useEffect, useState } from "react";
 import { useCities } from "../contexts/CitiesContext";
 import { useGeolocation } from "../hooks/useGeolocation";
-import Button from "./Button";
 import { useUrlPosition } from "../hooks/useUrlPosition";
 import { flagemojiToPNG } from "../utilities/convertEmoji";
+import Button from "./Button";
 
 function Map() {
   const { cities } = useCities();
@@ -89,7 +89,6 @@ function DetectClick() {
   const navigate = useNavigate();
   useMapEvents({
     click: (e) => {
-      console.log(e);
       navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`);
     },
   });
