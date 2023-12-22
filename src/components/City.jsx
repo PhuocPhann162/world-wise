@@ -4,6 +4,7 @@ import { useCities } from "../contexts/CitiesContext";
 import { useEffect } from "react";
 import Spinner from "./Spinner";
 import ButtonBack from "./ButtonBack";
+import { flagemojiToPNG } from "../utilities/convertEmoji";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -12,15 +13,6 @@ const formatDate = (date) =>
     year: "numeric",
     weekday: "long",
   }).format(new Date(date));
-
-const flagemojiToPNG = (flag) => {
-  var countryCode = Array.from(flag, (codeUnit) => codeUnit.codePointAt())
-    .map((char) => String.fromCharCode(char - 127397).toLowerCase())
-    .join("");
-  return (
-    <img src={`https://flagcdn.com/24x18/${countryCode}.png`} alt="flag" />
-  );
-};
 
 function City() {
   const { id } = useParams();

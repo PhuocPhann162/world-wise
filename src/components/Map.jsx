@@ -12,28 +12,18 @@ import { useEffect, useState } from "react";
 import { useCities } from "../contexts/CitiesContext";
 import { useGeolocation } from "../hooks/useGeolocation";
 import Button from "./Button";
-
-const flagemojiToPNG = (flag) => {
-  var countryCode = Array.from(flag, (codeUnit) => codeUnit.codePointAt())
-    .map((char) => String.fromCharCode(char - 127397).toLowerCase())
-    .join("");
-  return (
-    <img src={`https://flagcdn.com/24x18/${countryCode}.png`} alt="flag" />
-  );
-};
+import { useUrlPosition } from "../hooks/useUrlPosition";
+import { flagemojiToPNG } from "../utilities/convertEmoji";
 
 function Map() {
   const { cities } = useCities();
   const [mapPosition, setMapPosition] = useState([40, 0]);
-  const [searchParams] = useSearchParams();
+  const [mapLat, mapLng] = useUrlPosition();
   const {
     isLoading: isLoadingPosition,
     position: geolocationPosition,
     getPosition,
   } = useGeolocation();
-
-  const mapLat = searchParams.get("lat");
-  const mapLng = searchParams.get("lng");
 
   useEffect(() => {
     if (mapLat && mapLng) {
@@ -75,11 +65,13 @@ function Map() {
             </Popup>
           </Marker>
         ))}
-        <Marker position={mapPosition}>
-          <Popup>
-            <span>My Location</span>
-          </Popup>
-        </Marker>
+        {geolocationPosition && (
+          <Marker position={geolocationPosition}>
+            <Popup>
+              <span>My Location</span>
+            </Popup>
+          </Marker>
+        )}
         <ChangeCenter position={mapPosition} />
         <DetectClick />
       </MapContainer>
