@@ -3,8 +3,12 @@ import styles from "./CityList.module.css";
 import Spinner from "./Spinner";
 import Message from "./Message";
 import { useCities } from "../contexts/CitiesContext";
+import ButtonBack from "./ButtonBack";
+import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
 function CityList() {
+  const navigate = useNavigate();
   const { cities, isLoading } = useCities();
   if (isLoading) {
     return <Spinner />;
@@ -19,11 +23,18 @@ function CityList() {
   }
 
   return (
-    <ul className={styles.cityList}>
-      {cities.map((city) => (
-        <CityItem city={city} key={city.id} />
-      ))}
-    </ul>
+    <>
+      <ul className={styles.cityList}>
+        {cities.map((city) => (
+          <CityItem city={city} key={city.id} />
+        ))}
+        <div style={{ justifyContent: "center" }}>
+          <Button type="back" onClick={() => navigate("/")}>
+            Back to home
+          </Button>
+        </div>
+      </ul>
+    </>
   );
 }
 

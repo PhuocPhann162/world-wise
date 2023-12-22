@@ -62,7 +62,7 @@ function Form() {
     return <Message message="Starting by clicking somewhere on the map" />;
   if (geocodingError) return <Message message={geocodingError} />;
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (!cityName || !date) return;
@@ -76,8 +76,8 @@ function Form() {
       position: { lat, lng },
     };
 
-    createCity(newCity);
-    navigate("/app");
+    await createCity(newCity);
+    navigate("/app/cities");
   }
 
   return (

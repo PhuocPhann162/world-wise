@@ -1,12 +1,36 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 
 const BASE_URL = "http://localhost:9000";
 const CityContext = createContext();
 
+const initialState = {
+  cities: [],
+  isLoading: false,
+  currentCity: {},
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "":
+      return [...state];
+  }
+}
+
 function CityProvider({ children }) {
-  const [cities, setCities] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [currentCity, setCurrentCity] = useState({});
+  // const [cities, setCities] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [currentCity, setCurrentCity] = useState({});
+
+  const [{ cities, isLoading, currentCity }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   useEffect(() => {
     async function fetchCities() {
@@ -50,7 +74,7 @@ function CityProvider({ children }) {
       const data = await res.json();
       setCities((cities) => [...cities, data]);
     } catch {
-      alert("There was an error loading data...");
+      alert("There was an error creating data...");
     } finally {
       setIsLoading(false);
     }
@@ -64,7 +88,7 @@ function CityProvider({ children }) {
       });
       setCities((cities) => cities.filter((city) => city.id !== id));
     } catch {
-      alert("There was an error loading data...");
+      alert("There was an error deleting data...");
     } finally {
       setIsLoading(false);
     }

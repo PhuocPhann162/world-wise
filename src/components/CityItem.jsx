@@ -10,10 +10,14 @@ const formatDate = (date) =>
     year: "numeric",
   }).format(new Date(date));
 
-//98443197
 function CityItem({ city }) {
   const { cityName, emoji, date, id, position } = city;
   const { currentCity, deleteCity } = useCities();
+
+  async function handleDeleteCity(e) {
+    e.preventDefault();
+    await deleteCity(id);
+  }
 
   return (
     <li>
@@ -28,10 +32,7 @@ function CityItem({ city }) {
         <time className={styles.date}>({formatDate(date)})</time>
         <button
           className={styles.deleteBtn}
-          onClick={(e) => {
-            e.preventDefault();
-            deleteCity(id);
-          }}
+          onClick={(e) => handleDeleteCity(e)}
         >
           &times;
         </button>
