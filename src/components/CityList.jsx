@@ -28,11 +28,6 @@ function CityList() {
         {cities.map((city) => (
           <CityItem city={city} key={city.id} />
         ))}
-        <div style={{ justifyContent: "center" }}>
-          <Button type="back" onClick={() => navigate("/")}>
-            Back to home
-          </Button>
-        </div>
       </ul>
     </>
   );
